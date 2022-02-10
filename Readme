@@ -1,0 +1,66 @@
+Tema 3 - Protocoale de Comunicatie
+
+    Tema este reaizata in C++ si constituie implementarea unui client web care sa interactioneze cu un server 
+pe baza unor comenzi date de utilizator.
+    Utilizatorul va putea sa comunice cu serverul pe baza urmatoarelor comenzi:
+    
+    - register
+    - login
+    - enter_library
+    - get_books
+    - get_book
+    - add_book
+    - delete_book
+    - logout
+    - exit
+
+    Pentru implementarea lor, m-am folosit de obiecte json, fiind construite pe baza functiilor din biblioteca nlohmann.
+Cele trei functii "compute_get_request", "compute_post_request", "compute_delete_request" sunt folosite pentru comunicarea
+cu serverul, fiind apelate cu parametrii esentiali pentru fiecare comanda cu hostul cerut, cu fiecare ruta de acces, cookie-ul si token.
+
+    Comanda register:
+        Utilizatorul introduce de la tastatura informatiile pentru noul user,
+        dupa acestea sunt stocate intr-un obiect json, cum compute_post_request
+        cerea un char*, a trebuit sa realizez castarea, in formatul cerut din enunt
+        Dupa ce trimiteam informatiile catre server primeam un mesaj corespunzator.
+
+    Comanda login:
+        Variabila "alreadylog" verifica daca deja este un user conectat,
+        in cazul in care nu e, se introduc datele de la tastatura pentru logarea respectiva.
+        Implementarea acestei comenzi seamana cu cea de sus, singura diferenta fiind legata
+        de faptul ca atunci cand primesc un raspuns de la server, extrag cookie-ul 
+        cu ajutorul functiei "extractcookie".
+
+    Comanda enter_library:
+        Mai intai se face verificarea daca este cineva logat in momentul in care se face
+        acces in librarie, dupa primirea mesajului de la server, se extrage tokenul pentru
+        comenzile de mai jos.
+
+    Comanda get_books:
+        Se verifica mai intai daca s-a accesat bilblioteca pe baza token-ului, dupa
+        se cer informatiile necesare de la server pentru afisarea cartilor din librarie.
+
+    Comanda get_books:
+        Se verifica mai intai daca s-a accesat bilbioteca pe baza token-ului, apoi 
+        se citeste indexul pentru cartea ceruta si se afiseaza informatiile legate de ea.
+
+    Comanda add_book:
+        Se face verificarea ca in ultimele doua comenzi de mai sus, apoi se construieste
+        un obiect json pe baza informatiilor date la tastatura legate de carte si se trimite
+        la server.
+
+    Comanda delete_book:
+        Stergerea unei carti pe baza indexului dat la tastatura, este realizata
+        cu ajutorul functiei "compute_delete_request".
+
+    Comanda logout:
+        Se trimite catre server un mesaj ca s-a realizat logout-ul utillizatorului si
+        se reseteaza parametrii "alreadylog" si "token".
+
+    Comanda exit:
+        Comanda realizeaza iesirea din program.
+
+    Arhiva contine si un fisier cu biblioteca nlohmann pentru functionarea json-ului
+
+
+
